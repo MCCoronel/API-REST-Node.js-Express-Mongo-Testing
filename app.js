@@ -7,6 +7,7 @@ const dbConnect = require('./Config/mongo')
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static("storage")); //Esto sirve indicarle a la app que use esta carpeta para visualizar los archivos cuando se haga una peticion
 
 app.use('/api',require("./Routes"));
 

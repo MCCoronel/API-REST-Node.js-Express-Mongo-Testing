@@ -38,6 +38,9 @@ const TracksScheme = new mongoose.Schema(
         type: Number,
       },
     },
+    mediaId: {
+      type: mongoose.Types.ObjectId,
+    }
   },
   {
     timestamps: true, //Registra el createdAt y el updatedAt
