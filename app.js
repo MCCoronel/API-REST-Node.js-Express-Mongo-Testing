@@ -5,7 +5,10 @@ const cors  = require('cors') // le decimos a la app que use cors, esta es una l
 const app = express()
 const dbConnect = require('./Config/mongo')
 
-app.use(cors())
+app.use(cors());
+app.use(express.json());
+
+app.use('/api',require("./Routes"));
 
 const port = process.env.PORT || 3000
 
