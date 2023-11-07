@@ -7,7 +7,7 @@ const {validationCreateTracks, validatorGetTrack} = require('../validators/track
 router.get('/', controller_tracks.getTracksNames);
 router.get('/:id',validatorGetTrack , controller_tracks.getTrack);
 router.post('/',validationCreateTracks ,controller_tracks.createTrack);
-router.put('/:id', controller_tracks.updateTrack);
+router.put('/:id',validatorGetTrack,validationCreateTracks, controller_tracks.updateTrack);
 router.delete('/:id', controller_tracks.deleteTrack);
 
 module.exports = router;

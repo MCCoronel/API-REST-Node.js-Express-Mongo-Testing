@@ -41,9 +41,25 @@ const createTrack = async (req, res) => {
   }
 };
 
-const updateTrack = async(req, res) => {};
+const updateTrack = async(req, res) => {
+    try {
+        const { id, ...body } = matchedData(req);
+        const data = await tracksModel.findByIdAndUpdate(id, body);
+        res.send({ data });
+    } catch (error) {
+        handlehttpError(res, 'Error en la peticion', 404);
+    }
+};
 
-const deleteTrack = async(req, res) => {};
+const deleteTrack = async(req, res) => {
+    try {
+        const { id } = matchedData(req);
+        const data = await tracksModel.delete({_id:id});
+        res.send({ data });
+    } catch (error) {
+        handlehttpError(res, 'Error en la peticion', 404);
+    }
+};
 
 module.exports = {
   getTracksNames,
