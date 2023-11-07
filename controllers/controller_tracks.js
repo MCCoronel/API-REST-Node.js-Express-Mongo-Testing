@@ -3,6 +3,8 @@ const { tracksScheme, tracksModel } = require('../models');
 const handlehttpError = require('../utils/handlers/handle_Error');
 const { matchedData } = require('express-validator');
 
+
+//Listar todos los tracks
 const getTracksNames = async (req, res) => {
   try {
     const data = await tracksModel.find({}); //Me trae todo lo que hay en esa collection
@@ -13,7 +15,20 @@ const getTracksNames = async (req, res) => {
   }
 };
 
-const getTrack = (req, res) => {};
+//Obtener detalle de un track
+
+const getTrack = async (req, res) => {
+    try {
+        req = matchedData(req);
+        const { id } = req;
+        console.log(id);
+        const data = await tracksModel.findById(id);
+        console.log({data});
+        res.send({ data });
+    } catch (error) {
+     handlehttpError(res, 'Error en la peticion', 404);   
+    }
+};
 
 const createTrack = async (req, res) => {
   try {
@@ -26,9 +41,9 @@ const createTrack = async (req, res) => {
   }
 };
 
-const updateTrack = (req, res) => {};
+const updateTrack = async(req, res) => {};
 
-const deleteTrack = (req, res) => {};
+const deleteTrack = async(req, res) => {};
 
 module.exports = {
   getTracksNames,

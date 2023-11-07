@@ -1,4 +1,4 @@
-const  { check } = require('express-validator') 
+const { check } = require('express-validator');
 const validateResults = require('../utils/Middlewares/validatorMiddleware');
 
 const validationCreateTracks = [
@@ -44,8 +44,15 @@ const validationCreateTracks = [
     .isMongoId()
     .withMessage('La media es obligatoria'),
   (req, res, next) => {
-    validateResults(req,res,next);
+    validateResults(req, res, next);
   },
 ];
 
-module.exports = { validationCreateTracks }
+const validatorGetTrack = [
+  check('id').exists().notEmpty().isMongoId(),
+  (req, res, next) => {
+    validateResults(req, res, next);
+  },
+];
+
+module.exports = { validationCreateTracks, validatorGetTrack };
