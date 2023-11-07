@@ -1,12 +1,11 @@
-const {validationResult} = require('express-validators')
+const { validationResult } = require('express-validator');
 
-const validateResults = (req,res,next)=>{
+const validateResults = async (req,res,next)=>{
     try {
-        validationResults(req).throw();
+        await validationResult(req).throw();
         return next();  //Si no existe errores continua hacia el controllador
     } catch (error) {
-        res.status(403);
-        res.send({
+        res.status(403).json({
             error: error.array() //lanza un array de errores
         })
     }}

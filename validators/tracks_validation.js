@@ -1,32 +1,32 @@
-const { check } = require('express-validators');
+const  { check } = require('express-validator') 
 const validateResults = require('../utils/validatorMiddleware');
 
 const validationCreateTracks = [
   check('name')
     .exists()
     .notEmpty()
-    .isLenght({ min: 3, max: 100 })
+    .isLength({ min: 3, max: 100 })
     .withMessage('El nombre es obligatorio'),
   check('album')
     .exists()
     .notEmpty()
-    .isLenght({ min: 3, max: 100 })
+    .isLength({ min: 3, max: 100 })
     .withMessage('El album es obligatorio'),
   check('cover').exists().notEmpty().withMessage('La imagen es obligatoria'),
   check('artist.name')
     .exists()
     .notEmpty()
-    .isLenght({ min: 3, max: 100 })
+    .isLength({ min: 3, max: 100 })
     .withMessage('El nombre del artista es obligatorio'),
   check('artist.nickname')
     .exists()
     .notEmpty()
-    .isLenght({ min: 3, max: 20 })
+    .isLength({ min: 3, max: 20 })
     .withMessage('El nickname del artista es obligatorio'),
   check('artist.nationality')
     .exists()
     .notEmpty()
-    .isLenght({ min: 3, max: 10 })
+    .isLength({ min: 3, max: 10 })
     .withMessage('La nacionalidad del artista es obligatorio'),
   check('duration.start')
     .exists()
@@ -44,7 +44,7 @@ const validationCreateTracks = [
     .isMongoId()
     .withMessage('La media es obligatoria'),
   (req, res, next) => {
-    validateResults();
+    validateResults(req,res,next);
   },
 ];
 
