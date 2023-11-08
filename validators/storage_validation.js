@@ -7,7 +7,7 @@ const validatorIdStorage = [
     .exists()
     .notEmpty(),
     (req, res, next) => {
-      console.log(req.params.id);
+      
         return validateResults(req, res, next)
     }
 ];
