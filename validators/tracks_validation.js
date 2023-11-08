@@ -48,11 +48,11 @@ const validationCreateTracks = [
   },
 ];
 
-const validatorGetTrack = [
+const validatorId = [
   check('id').exists().notEmpty().isMongoId(),
   (req, res, next) => {
     validateResults(req, res, next);
   },
 ];
 
-module.exports = { validationCreateTracks, validatorGetTrack };
+module.exports = { validationCreateTracks, validatorId };

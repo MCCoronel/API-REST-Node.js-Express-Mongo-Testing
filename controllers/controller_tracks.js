@@ -55,7 +55,7 @@ const deleteTrack = async(req, res) => {
     try {
         const { id } = matchedData(req);
         const data = await tracksModel.delete({_id:id});
-        res.send({ data });
+        res.send('Eliminado');
     } catch (error) {
         handlehttpError(res, 'Error en la peticion', 404);
     }

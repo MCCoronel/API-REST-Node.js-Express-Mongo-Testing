@@ -12,7 +12,7 @@ const removeExtension = (fileName) =>{ //esto lo hago para quitar la extension d
 fs.readdirSync(PATH_ROUTES).filter((file)=>{ // filter sirve para que nos de solo los archivos que terminen en .js
 const name = removeExtension(file)
 if(name !== 'index'){
-    console.log(`Cargando ruta ${name}`)
+    //console.log(`Cargando ruta ${name}`)
     router.use(`/${name}`, require(`./${file}`));  //el primer parametro es la ruta y el segundo es el archivo
 }
 }); //Esto es un array que devuelve el nombre de los file que se encuentran dentro de Routes

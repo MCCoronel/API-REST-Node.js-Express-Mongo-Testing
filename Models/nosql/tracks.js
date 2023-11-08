@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 
 //Esta es una coleccion, en mysql seria una tabla
 
@@ -47,5 +48,7 @@ const TracksScheme = new mongoose.Schema(
     versionKey: 'false', //Elimina el __v
   }
 );
+
+TracksScheme.plugin(mongooseDelete, { overrideMethods: 'all' }); // Esto implementacion sirve para habilitar el delete, o los metodos nativos de mongoose
 
 module.exports = mongoose.model("tracks", TracksScheme);
