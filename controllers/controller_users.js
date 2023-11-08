@@ -2,29 +2,61 @@ const mongoose = require('mongoose');
 const { usersScheme, usersModel } = require('../models');
 const handlehttpError = require('../utils/handlers/handleError');
 const { matchedData } = require('express-validator');
-const handlePassword = require('../utils/handlers/handlePassword');
+const { encrypt, compare } = require('../utils/handlers/handlePassword');
+const { tokenSign } = require('../utils/handlers/handleJWT');
 
-//Listar todos los tracks
+
+/**
+ * Registers a user in the system.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @return {Promise<void>} Returns a promise that resolves when the user is registered successfully.
+ */
 const register = async (req, res) => {
   try {
     req = matchedData(req);
 
-    const password = await handlePassword.encrypt(req.password);
+    const existUser = await usersModel.findOne({ email: req.email });
+    if (existUser) {
+      handlehttpError(res, 'El usuario ya existe en la base de datos', 400);
+    }
 
+    const password = await encrypt(req.password);
     const body = { ...req, password };
+    const dataUser = await usersModel.create(body);
+    dataUser.set('password', undefined, { strict: false });
 
-    const data = await usersModel.create(body);
-    data.set('password', undefined, { strict: false });/*El primer parámetro 'password' indica el nombre de la propiedad que se va a modificar.
-    El segundo parámetro undefined establece el nuevo valor de la propiedad. En este caso, se está estableciendo como undefined, lo que significa que se está eliminando el valor de la propiedad.
-    El tercer parámetro { strict: false } es una opción que permite realizar modificaciones en propiedades que están configuradas como estrictas en el esquema de mongoose. Estableciendo strict como false, se permite la modificación de la propiedad password a pesar de que pueda estar configurada como estricta en el esquema.
-    En resumen, esta línea de código está eliminando el valor de la propiedad password en el objeto data, y lo hace permitiendo la modificación de una propiedad estricta.*/
+    if (!dataUser) {
+      handlehttpError(res, 'Error al registrar el usuario', 400);
+    }
+
+    const data = {
+      token: await tokenSign(dataUser),
+      user: dataUser,
+    };
+
+    if (!data.token) {
+      handlehttpError(res, 'Error al generar el token', 400);
+    }
+
     res.send({ data });
-
   } catch (error) {
-
-    handlehttpError(res, 'Error en la peticion', 404);
-
+    console.error(error);
+    handlehttpError(res, 'Error interno en el servidor', 500);
   }
 };
 
-module.exports = { register };
+/**
+ * Este controlador se encarga de loguear a una persona
+ *
+ * @param {type} req - description of parameter
+ * @param {type} res - description of parameter
+ * @return {type} description of return value
+ */
+const login = async (req, res) => {
+
+  
+}
+
+module.exports = { register , login};
