@@ -17,6 +17,7 @@ const UserScheme = new mongoose.Schema(
     },
     password: {
       type: String,
+      select: false  // Me permite que no me traiga la contrasena en una consulta
     },
     role: {
       type: ["user","admin"],  // es como el ENUM

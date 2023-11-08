@@ -1,5 +1,5 @@
 const { StorageScheme, storageModel } = require('../models');
-const handlehttpError = require('../utils/handlers/handle_Error');
+const handlehttpError = require('../utils/handlers/handleError');
 const fs = require('fs');
 
 const PUBLIC_URL = process.env.PUBLIC_URL;
@@ -69,6 +69,5 @@ module.exports = {
   getFiles,
   getFile,
   UploadFile,
-  updatefile,
   deleteFile,
 };
