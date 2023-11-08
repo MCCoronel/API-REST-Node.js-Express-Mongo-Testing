@@ -14,10 +14,13 @@ const getFiles = async(req, res) => {
 
 const getFile = async(req, res) => {
   try {
-    const { id } = matchedData(req);
+    console.log('0');
+    console.log(req.params.id);
+    const id = req.params.id
+    console.log('1');
     const data = await storageModel.findById(id);
-    console.log(id);
-    console.log({ data });
+    console.log('2');
+    console.log(data);
     res.send({ data });
   } catch (error) {
     handlehttpError(res, 'Error en la peticion', 404);
