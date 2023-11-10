@@ -55,7 +55,36 @@ const register = async (req, res) => {
  * @return {type} description of return value
  */
 const login = async (req, res) => {
+try {
+  req = matchedData(req);
+  const user = await usersModel.findOne({email: req.email}).select('password name role email')
 
+ if(!user){
+  handlehttpError(res, 'El usuario no existe en la base de datos', 404)
+  return
+ }
+
+ const hashPassword = user.get('password')
+ const check = await compare(req.password, hashPassword)
+
+ if(!check){
+  handlehttpError(res, 'La contraseña es incorrecta', 401)
+  return
+ }
+
+ user.set('password', undefined, {strict: false})
+
+ const data = {
+  token: await tokenSign(user),
+  user: user,
+ }
+
+ res.send({data})
+
+} catch (error) {
+  console.error(error)
+  handlehttpError(res, 'Error interno en el servidor', 500)
+}
   
 }
 
