@@ -58,15 +58,15 @@ const login = async (req, res) => {
 try {
 
   req = matchedData(req);
-  const user = await usersModel.findOne({email: req.email}).select('password name role email')
+  const user = await usersModel.findOne({email: req.email}).select('password name role email') //con el select defino que campos quiero mostrar
 
  if(!user){
   handlehttpError(res, 'El usuario no existe en la base de datos', 404)
   return
  }
 
- const hashPassword = user.get('password')
- console.log("hashpassword: ",hashPassword);
+ const hashPassword = user.get('password') //Lo hacemos asi ya que no se puede ir directamente a la prop como user.password 
+ 
  const check = await compare(req.password, hashPassword)
 
  if(!check){
