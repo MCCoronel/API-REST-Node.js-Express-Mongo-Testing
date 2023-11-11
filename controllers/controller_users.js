@@ -56,6 +56,7 @@ const register = async (req, res) => {
  */
 const login = async (req, res) => {
 try {
+
   req = matchedData(req);
   const user = await usersModel.findOne({email: req.email}).select('password name role email')
 
@@ -65,6 +66,7 @@ try {
  }
 
  const hashPassword = user.get('password')
+ console.log("hashpassword: ",hashPassword);
  const check = await compare(req.password, hashPassword)
 
  if(!check){
