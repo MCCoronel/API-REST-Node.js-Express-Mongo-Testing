@@ -15,7 +15,7 @@ authMiddleware,
 controller_tracks.getTracksNames);
 
 router.get('/:id', 
-authMiddleware, 
+authMiddleware,
 validatorId, 
 controller_tracks.getTrack);
 

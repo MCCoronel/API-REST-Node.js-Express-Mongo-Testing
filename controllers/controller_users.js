@@ -40,7 +40,7 @@ const register = async (req, res) => {
       handlehttpError(res, 'Error al generar el token', 400);
     }
 
-    res.send({ data });
+    res.status(201).send({ data });
   } catch (error) {
     console.error(error);
     handlehttpError(res, 'Error interno en el servidor', 500);

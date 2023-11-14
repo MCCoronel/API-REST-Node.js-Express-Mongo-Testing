@@ -2,7 +2,8 @@ require('dotenv').config();
 
 const morganBody = require('morgan-body');
 const loggerStream = require('./utils/handlers/handle_logger');
-
+const swaggerUI = require('swagger-ui-express');
+const openApiConfiguratiion = require('./doc/swagger');
 const express = require('express');
 const cors = require('cors'); // le decimos a la app que use cors, esta es una libreria que me permite hacer peticiones remotas
 const app = express();
@@ -20,6 +21,18 @@ morganBody(app, {
     return res.statusCode < 400;
   },
 });
+
+/**
+ * Definir ruta de documentacion => localhost:3001/documentation
+ */
+app.use(
+  '/documentation',
+  swaggerUI.serve,
+  swaggerUI.setup(openApiConfiguratiion)
+);
+/**
+ * Aqui invocamos las Rutas
+ */
 
 app.use('/api', require('./Routes'));
 

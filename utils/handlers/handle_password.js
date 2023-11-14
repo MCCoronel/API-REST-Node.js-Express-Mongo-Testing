@@ -1,28 +1,25 @@
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 
 //Esta es la contrasena sin encriptar passwordPlain
-const encrypt = async(passwordPlain)=>{
-    try {
-      
-        const hash = await bcrypt.hash(passwordPlain, 10)  //aqui obtenemos la contrasena encriptada
-        
-        return hash;        
-    } catch (error) {
-     
-        throw new Error( 'Error al encriptar la contraseña');
-    }
-}
+const encrypt = async (passwordPlain) => {
+  try {
+    const hash = await bcrypt.hash(passwordPlain, 10); //aqui obtenemos la contrasena encriptada
+
+    return hash;
+    
+  } catch (error) {
+    throw new Error('Error al encriptar la contraseña');
+  }
+};
 
 //Esta funcion recibe la contrasena sin encriptar y la encriptada
-const compare = async( passwordPlain, hashPassword)=>{
+const compare = async (passwordPlain, hashPassword) => {
+  const compare = await bcrypt.compare(passwordPlain, hashPassword);
 
-   const compare = await bcrypt.compare(passwordPlain, hashPassword)
-  
-   return compare
-
-}
+  return compare;
+};
 
 module.exports = {
-    encrypt,
-    compare
-}
+  encrypt,
+  compare,
+};
