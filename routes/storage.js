@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller_storage = require('../controllers/controller_storage'); 
-const UploadFileMiddleware = require('../utils/Middlewares/uploadMiddleware');   
+const UploadFileMiddleware = require('../utils/Middlewares/upload_middleware');   
 const validatorIdStorage = require('../validators/storage_validation');
 
 

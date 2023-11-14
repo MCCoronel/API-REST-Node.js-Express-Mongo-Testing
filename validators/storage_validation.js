@@ -1,5 +1,5 @@
 const { check } = require("express-validator");
-const validateResults = require("../utils/Middlewares/validatorMiddleware")
+const validateResults = require("../utils/Middlewares/validator_middleware")
 
 
 const validatorIdStorage = [

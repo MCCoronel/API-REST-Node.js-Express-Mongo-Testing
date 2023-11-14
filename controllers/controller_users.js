@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const { usersScheme, usersModel } = require('../models');
-const handlehttpError = require('../utils/handlers/handleError');
+const handlehttpError = require('../utils/handlers/handle_error');
 const { matchedData } = require('express-validator');
-const { encrypt, compare } = require('../utils/handlers/handlePassword');
-const { tokenSign } = require('../utils/handlers/handleJWT');
+const { encrypt, compare } = require('../utils/handlers/handle_password');
+const { tokenSign } = require('../utils/handlers/handle_JWT');
 
 
 /**

@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 const { tracksScheme, tracksModel } = require('../models');
-const handlehttpError = require('../utils/handlers/handleError');
+const handlehttpError = require('../utils/handlers/handle_error');
 const { matchedData } = require('express-validator');
 
 
 //Listar todos los tracks
 const getTracksNames = async (req, res) => {
   try {
+    const user = req.user;
+    console.log(user);
     const data = await tracksModel.find({}); //Me trae todo lo que hay en esa collection
 
     res.send({ data });
