@@ -2,19 +2,19 @@ const request = require('supertest'); //supertest se utiliza para hacer peticion
 
 const app = require('../app');
 const { usersModel } = require('../models');
-const {testAuthLogin, testAuthRegister} = require('./helperData/helper_data');
+//const {testAuthLogin, testAuthRegister} = require('./helperData/helper_data');
 
-// const testAuthRegister = {
-//   name: 'Tinisima',
-//   age: 20,
-//   email: 'tina23@test23.com',
-//   password: 'testing1234455',
-// };
+const testAuthRegister = {
+  name: 'Tinisima',
+  age: 20,
+  email: 'tina2023@test2023.com',
+  password: 'testing1234455',
+};
 
-// const testAuthLogin = {
-//   email: 'tina23@test23.com',
-//   password: 'testing1234455',
-// };
+const testAuthLogin = {
+  email: 'tina2023@test2023.com',
+  password: 'testing1234455',
+};
 
 //ESTO SE EJECUTA ANTES DE LA SPRUEBAS
 beforeAll(async () => {
