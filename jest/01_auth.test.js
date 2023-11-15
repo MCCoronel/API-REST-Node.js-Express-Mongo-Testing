@@ -1,5 +1,5 @@
 const request = require('supertest'); //supertest se utiliza para hacer peticiones HTTP
-
+const mongoose = require('mongoose');
 const app = require('../app');
 const { usersModel } = require('../models');
 //const {testAuthLogin, testAuthRegister} = require('./helperData/helper_data');
@@ -20,6 +20,14 @@ const testAuthLogin = {
 beforeAll(async () => {
   await usersModel.deleteMany();
 });
+
+
+/**
+ * despues de todo le indico que cierre la conexion, con esto aun va a seguir el error, pero todo es por las versiones de mongo
+ */
+afterAll(async () => {
+  await mongoose.connection.close();
+})
 
 describe('[AUTH] This is de /api/test test', () => {
   test('esto deberia retornar 201', async () => {
