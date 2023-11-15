@@ -19,7 +19,7 @@ const register = async (req, res) => {
 
     const existUser = await usersModel.findOne({ email: req.email });
     if (existUser) {
-      handlehttpError(res, 'El usuario ya existe en la base de datos', 400);
+      handlehttpError(res, 'El usuario ya existe en la base de datos', 409);
     }
 
     const password = await encrypt(req.password);
