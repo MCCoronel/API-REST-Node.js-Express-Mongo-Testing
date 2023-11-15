@@ -8,6 +8,7 @@ const express = require('express');
 const cors = require('cors'); // le decimos a la app que use cors, esta es una libreria que me permite hacer peticiones remotas
 const app = express();
 const dbConnect = require('./Config/mongo');
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
 app.use(cors());
 app.use(express.json());
@@ -38,8 +39,12 @@ app.use('/api', require('./Routes'));
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+if (NODE_ENV !== 'test') {  
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
 
 dbConnect();
+
+module.exports = app;
