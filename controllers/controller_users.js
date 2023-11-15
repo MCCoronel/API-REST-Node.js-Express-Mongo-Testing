@@ -81,7 +81,7 @@ try {
   user: user,
  }
 
- res.send({data})
+ res.status(200).send({data})
 
 } catch (error) {
   console.error(error)
