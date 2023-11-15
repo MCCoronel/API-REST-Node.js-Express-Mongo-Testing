@@ -5,7 +5,6 @@ const { matchedData } = require('express-validator');
 const { encrypt, compare } = require('../utils/handlers/handle_password');
 const { tokenSign } = require('../utils/handlers/handle_JWT');
 
-
 /**
  * Registers a user in the system.
  *
@@ -18,6 +17,7 @@ const register = async (req, res) => {
     req = matchedData(req);
 
     const existUser = await usersModel.findOne({ email: req.email });
+
     if (existUser) {
       handlehttpError(res, 'El usuario ya existe en la base de datos', 409);
     }
@@ -55,39 +55,38 @@ const register = async (req, res) => {
  * @return {type} description of return value
  */
 const login = async (req, res) => {
-try {
+  try {
+    req = matchedData(req);
+    const user = await usersModel
+      .findOne({ email: req.email })
+      .select('password name role email'); //con el select defino que campos quiero mostrar
 
-  req = matchedData(req);
-  const user = await usersModel.findOne({email: req.email}).select('password name role email') //con el select defino que campos quiero mostrar
+    if (!user) {
+      handlehttpError(res, 'El usuario no existe en la base de datos', 404);
+      return;
+    }
 
- if(!user){
-  handlehttpError(res, 'El usuario no existe en la base de datos', 404)
-  return
- }
+    const hashPassword = user.get('password'); //Lo hacemos asi ya que no se puede ir directamente a la prop como user.password
 
- const hashPassword = user.get('password') //Lo hacemos asi ya que no se puede ir directamente a la prop como user.password 
- 
- const check = await compare(req.password, hashPassword)
+    const check = await compare(req.password, hashPassword);
 
- if(!check){
-  handlehttpError(res, 'La contraseña es incorrecta', 401)
-  return
- }
+    if (!check) {
+      handlehttpError(res, 'La contraseña es incorrecta', 401);
+      return;
+    }
 
- user.set('password', undefined, {strict: false})
+    user.set('password', undefined, { strict: false });
 
- const data = {
-  token: await tokenSign(user),
-  user: user,
- }
+    const data = {
+      token: await tokenSign(user),
+      user: user,
+    };
 
- res.status(200).send({data})
+    res.status(200).send({ data });
+  } catch (error) {
+    console.error(error);
+    handlehttpError(res, 'Error interno en el servidor', 500);
+  }
+};
 
-} catch (error) {
-  console.error(error)
-  handlehttpError(res, 'Error interno en el servidor', 500)
-}
-  
-}
-
-module.exports = { register , login};
+module.exports = { register, login };

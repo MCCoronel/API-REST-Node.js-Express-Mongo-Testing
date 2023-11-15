@@ -4,7 +4,6 @@ const controller_storage = require('../controllers/controller_storage');
 const UploadFileMiddleware = require('../utils/Middlewares/upload_middleware');
 const validatorIdStorage = require('../validators/storage_validation');
 
-
 /**
  * Get all storages
  * @openapi

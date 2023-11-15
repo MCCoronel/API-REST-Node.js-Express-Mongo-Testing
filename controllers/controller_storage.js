@@ -26,15 +26,24 @@ const getFile = async (req, res) => {
   }
 };
 const UploadFile = async (req, res) => {
-  const { file } = req;
-  console.log(file);
-  const fileData = {
-    fileName: file.filename,
-    url: `${PUBLIC_URL}/${file.filename}`,
-  };
-  /*console.log(file);*/
-  const data = await storageModel.create(fileData);
-  res.send({ data });
+
+  try {
+    const { file } = req;
+    const headers = req.headers;
+    // console.log("headers: ", headers);
+    // console.log("file: ", file);
+
+    const fileData = {
+      fileName: file.filename,
+      url: `${PUBLIC_URL}/${file.filename}`,
+    };
+    /*console.log(file);*/
+    const data = await storageModel.create(fileData);
+    res.status(201).send({ data });
+    
+  } catch (error) {
+    handlehttpError(res, 'Error en la peticion', 404);
+  }
 };
 
 
@@ -52,15 +61,19 @@ const deleteFile = async (req, res) => {
     const filePath = `${MEDIA_PATH}/${filename}`;
     console.log(filePath);
     console.log('4');
-    fs.unlinkSync(filePath);
+    fs.unlinkSync(filePath); 
     console.log('5');
+    
     const data = {
       filePath,
       deleted: 1,
     };
 
-    res.send('Eliminado');
+    console.log(data);
+
+    res.send({data});
   } catch (error) {
+    console.log(error);
     handlehttpError(res, 'Error en la peticion', 404);
   }
 };

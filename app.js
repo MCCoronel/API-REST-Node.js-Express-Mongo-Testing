@@ -39,6 +39,9 @@ app.use('/api', require('./Routes'));
 
 const port = process.env.PORT || 3000;
 
+/**
+ * Si el entorno es dif a test entonces que si inicie la app, si invoque el puerto, porque a lo largo de la prueba,puede que tengamos un error, del supertest, ya que lo que hace es instanciar, va a levantar una app al momneto de que hace la app, y cuando dejamos que haga eso sin una bandera o un limite por asi decirlo, vamos a obtener un error en la consola que el puerto 3001 ya esta siendo usado,de esta forma evitamos que cuando se ejecuten pruebas no se levante la aplicacion ya que eso lo hace automaticamente supertest, en packageJson ponemos "test": "cross-env NODE_ENV=test jest" en scripts
+ */
 if (NODE_ENV !== 'test') {  
   app.listen(port, () => {
     console.log(`Server running on port ${port}`);
