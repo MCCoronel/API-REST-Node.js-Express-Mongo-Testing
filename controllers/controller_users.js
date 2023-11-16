@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const { usersScheme, usersModel } = require('../models');
-const handlehttpError = require('../utils/handlers/handle_error');
+const {handlehttpError} = require('../utils/handlers/handle_error');
 const { matchedData } = require('express-validator');
 const { encrypt, compare } = require('../utils/handlers/handle_password');
-const { tokenSign } = require('../utils/handlers/handle_JWT');
+const { tokenSign } = require('../utils/handlers/handle_jwt');
 
 /**
  * Registers a user in the system.
@@ -20,6 +20,7 @@ const register = async (req, res) => {
 
     if (existUser) {
       handlehttpError(res, 'El usuario ya existe en la base de datos', 409);
+      return;
     }
 
     const password = await encrypt(req.password);
@@ -29,6 +30,7 @@ const register = async (req, res) => {
 
     if (!dataUser) {
       handlehttpError(res, 'Error al registrar el usuario', 400);
+      return;
     }
 
     const data = {
@@ -38,12 +40,14 @@ const register = async (req, res) => {
 
     if (!data.token) {
       handlehttpError(res, 'Error al generar el token', 400);
+      return;
     }
 
     res.status(201).send({ data });
   } catch (error) {
     console.error(error);
     handlehttpError(res, 'Error interno en el servidor', 500);
+    
   }
 };
 

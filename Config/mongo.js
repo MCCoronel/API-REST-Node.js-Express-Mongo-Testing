@@ -8,7 +8,7 @@ const dbConnect = async () => {
     await mongoose.connect(DB_URI);
     console.log('Database online');
   } catch (error) {
-    console.log(error);
+    console.log('configMongoError: ',error);
   }
 };
 

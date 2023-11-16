@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { tracksScheme, tracksModel } = require('../models/nosql/tracks');
+const { tracksScheme, tracksModel } = require('../models');
 const handlehttpError = require('../utils/handlers/handle_error');
 const { matchedData } = require('express-validator');
 
@@ -60,7 +60,7 @@ const deleteTrack = async(req, res) => {
     try {
         const { id } = matchedData(req);
         const data = await tracksModel.delete({_id:id});
-        res.send('Eliminado');
+        res.send({data});
     } catch (error) {
         handlehttpError(res, 'Error en la peticion', 404);
     }
