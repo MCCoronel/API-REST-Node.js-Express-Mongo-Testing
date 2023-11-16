@@ -39,6 +39,22 @@ const testAuthLogin = {
     },
     mediaId: "",
   };
+
+  const testUpdateDataTrack = {
+    name: "Update",
+    album: "Ejemplo",
+    cover: "http://image.com",
+    artist: {
+      name: "Ejemplo",
+      nickname: "Ejemplo",
+      nationality: "ARG",
+    },
+    duration: {
+      start: 1,
+      end: 3,
+    },
+    mediaId: "",
+  };
   
 
   module.exports = {
@@ -46,5 +62,6 @@ const testAuthLogin = {
     testAuthLogin,
     testAuthRegisterAdmin,
     testStorageRegister,
-    testDataTrack
+    testDataTrack,
+    testUpdateDataTrack
   }

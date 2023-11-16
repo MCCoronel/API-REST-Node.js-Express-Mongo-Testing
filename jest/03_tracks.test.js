@@ -6,6 +6,7 @@ const {
   testAuthRegiste,
   testStorageRegister,
   testDataTrack,
+  testUpdateDataTrack,
   testAuthRegister,
 } = require('./helperData/helper_data');
 const { tokenSign } = require('../utils/handlers/handle_jwt');
@@ -75,6 +76,22 @@ test('Detalle de un item', async()=>{
     .get(`/api/tracks/${id}`)
     .set('Authorization',`Bearer ${JWT_TOKEN}`)
     const {body} = res
+    expect(res.statusCode).toEqual(200)
+    expect(body).toHaveProperty('data')
+})
+
+/**
+ * Test UPDATE Track
+ */
+
+test('Deberia actualizar el track', async()=>{
+    const {_id} = await tracksModel.findOne({})
+    id = _id.toString()
+    const res = await request(app)
+    .get(`/api/tracks/${id}`)
+    .set('Authorization',`Bearer ${JWT_TOKEN}`)
+    .send(testUpdateDataTrack)
+    const{body} = res
     expect(res.statusCode).toEqual(200)
     expect(body).toHaveProperty('data')
 })

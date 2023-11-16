@@ -25,18 +25,17 @@ const testAuthLogin = {
   password: 'testing1234455',
 };
 
+const testAuthLoginNotExists = {
+  email: 'tina2021@test2021.com',
+  password: 'testing1234455',
+};
+
 //ESTO SE EJECUTA ANTES DE LA SPRUEBAS
 beforeAll(async () => {
   await usersModel.deleteMany();
-});
+},10000);
 
 
-/**
- * despues de todo le indico que cierre la conexion, con esto aun va a seguir el error, pero todo es por las versiones de mongo
- */
-afterAll(async () => {
-  await mongoose.connection.close();
-})
 
 describe('[AUTH] This is de /api/test test', () => {
   test('Registro de usuario, esto deberia retornar 201', async () => {
@@ -60,8 +59,22 @@ describe('[AUTH] This is de /api/test test', () => {
     const response = await request(app)
       .post('/api/auth/login')
       .send(testAuthLogin);
-    expect(response.statusCode).toEqual(200);
-  });
+      expect(response.statusCode).toEqual(200);
+    });
+
+    test('Test Login cuando un usuario no existe', async()=>{
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send(testAuthLoginNotExists);
+    expect(response.statusCode).toEqual(404);
+  })
 
 
 });
+
+/**
+ * despues de todo le indico que cierre la conexion, con esto aun va a seguir el error, pero todo es por las versiones de mongo
+ */
+afterAll(async () => {
+  await mongoose.connection.close();
+},10000)
