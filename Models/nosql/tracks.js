@@ -107,7 +107,9 @@ TracksScheme.statics.findOneData = function (id) {
 
 TracksScheme.plugin(mongooseDelete, { overrideMethods: 'all' }); // Esto implementacion sirve para habilitar el delete, o los metodos nativos de mongoose
 
-module.exports = {
-  tracksScheme: TracksScheme,
-  tracksModel: mongoose.model('tracksModel', TracksScheme),
-};
+// module.exports = {
+//   tracksScheme: TracksScheme,
+//   tracksModel: mongoose.model('tracksModel', TracksScheme),
+// };
+
+module.exports= mongoose.model("tracks",TracksScheme)

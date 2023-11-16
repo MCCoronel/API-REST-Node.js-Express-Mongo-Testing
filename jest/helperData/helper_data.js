@@ -31,7 +31,7 @@ const testAuthLogin = {
     artist: {
       name: "Ejemplo",
       nickname: "Ejemplo",
-      nationality: "VE",
+      nationality: "ARG",
     },
     duration: {
       start: 1,

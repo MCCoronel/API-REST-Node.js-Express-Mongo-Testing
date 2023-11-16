@@ -4,7 +4,16 @@ const app = require('../app');
 const { usersModel } = require('../models');
 //const {testAuthLogin, testAuthRegister} = require('./helperData/helper_data');
 
+
+//Falta refactorizar(poner en otra carpeta) estas variables
 const testAuthRegister = {
+  name: 'Tinisima',
+  age: 20,
+  email: 'tina2023@test2023.com',
+  password: 'testing1234455',
+};
+
+const testAuthRegisterExist = {
   name: 'Tinisima',
   age: 20,
   email: 'tina2023@test2023.com',
@@ -30,7 +39,7 @@ afterAll(async () => {
 })
 
 describe('[AUTH] This is de /api/test test', () => {
-  test('esto deberia retornar 201', async () => {
+  test('Registro de usuario, esto deberia retornar 201', async () => {
     const response = await request(app)
       .post('/api/auth/register')
       .send(testAuthRegister);
@@ -40,10 +49,19 @@ describe('[AUTH] This is de /api/test test', () => {
     expect(response.body).toHaveProperty('data.user');
   });
 
+  test('Testeando existencia de usuario', async () =>{
+    const response = await request(app)
+    .post('/api/auth/register')
+    .send(testAuthRegisterExist);
+    expect(response.body).toEqual({error:'El usuario ya existe en la base de datos'});
+  })
+
   test('esto deberia retornar 200', async () => {
     const response = await request(app)
       .post('/api/auth/login')
       .send(testAuthLogin);
     expect(response.statusCode).toEqual(200);
   });
+
+
 });
