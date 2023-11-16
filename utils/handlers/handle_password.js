@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const { handlehttpError } = require('../handlers/handle_error');
 
 //Esta es la contrasena sin encriptar passwordPlain
 const encrypt = async (passwordPlain) => {
@@ -8,7 +9,7 @@ const encrypt = async (passwordPlain) => {
     return hash;
     
   } catch (error) {
-    throw new Error('Error al encriptar la contraseña');
+    handlehttpError(res,'Error al encriptar la contraseña', 500);
   }
 };
 
