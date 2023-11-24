@@ -1,4 +1,4 @@
-# SPI REST de Tracks
+# API REST de Tracks
 
 Bienvenido al proyecto API REST de Tracks. Este proyecto es una API que desarrolle para practicar conceptos de Node.js, Express, JWT, Mongo, Swagger y testing abarcando desde la configuración inicial hasta la implementación de características avanzadas. A continuación, se detalla cómo configurar el entorno y ejecutar la aplicación.
 
@@ -30,13 +30,16 @@ Bienvenido al proyecto API REST de Tracks. Este proyecto es una API que desarrol
 ## Estructura del Proyecto
 
 - **src**: Código fuente de la aplicación.
+  - **config**: Configuraciones, variables de entorno.
   - **controllers**: Controladores para gestionar las rutas.
+  - **coverage**: Informes de cobertura de pruebas.
+  - **doc**: Documentación del proyecto.
+  - **jest**: Pruebas unitarias con Jest.
   - **models**: Definiciones de modelos para MongoDB.
   - **routes**: Rutas dinámicas en Express.
+  - **storage**: Almacenamiento de archivos y recursos.
   - **utils**: Utilidades y funciones auxiliares.
-- **config**: Configuraciones, variables de entorno.
-- **public**: Archivos estáticos.
-- **test**: Pruebas unitarias.
+  - **validators**: Validadores para las solicitudes y datos de la aplicación.
 
 ## Funcionalidades Principales
 
@@ -44,9 +47,7 @@ Bienvenido al proyecto API REST de Tracks. Este proyecto es una API que desarrol
 - Autenticación con JSON Web Tokens (JWT).
 - Validación de datos y manejo de errores.
 - Implementación de middleware y soft delete.
-- Integración con MySQL Sequelize.
 - Documentación con Swagger.
-- Soporte para TypeScript.
 
 ## Documentación y Validación
 
@@ -60,18 +61,6 @@ Bienvenido al proyecto API REST de Tracks. Este proyecto es una API que desarrol
 - Manejo de errores con Slack.
 - Uso de JSON Web Tokens (JWT) para autenticación.
 
-## Integración con MySQL Sequelize
-
-- Uso de Sequelize para trabajar con bases de datos SQL.
-- Creación de modelos Sequelize.
-- Aplicación de métodos personalizados Sequelize.
-- Realización de joins en Sequelize.
-
-## Iniciando con TypeScript
-
-- Inicio de la transición a TypeScript.
-- Importación dinámica de TypeScript.
-- Compilación del proyecto.
 
 ---
 
