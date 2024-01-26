@@ -10,8 +10,6 @@ Bienvenido al proyecto API REST de Tracks. Este proyecto es una API que desarrol
 4. [Funcionalidades Principales](#funcionalidades-principales)
 5. [Documentación y Validación](#documentación-y-validación)
 6. [Seguridad y Trazabilidad](#seguridad-y-trazabilidad)
-7. [Integración con MySQL Sequelize](#integración-con-mysql-sequelize)
-8. [Iniciando con TypeScript](#iniciando-con-typescript)
 
 ## Configuración del Entorno
 
